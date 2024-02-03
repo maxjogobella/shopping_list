@@ -2,9 +2,12 @@ package com.example.shopping_list.data.local
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.shopping_list.domain.ShopItem
 
+@Database(entities = [ShopItem::class], version = 1, exportSchema = false)
 abstract class ShopDatabase : RoomDatabase() {
 
     companion object {
