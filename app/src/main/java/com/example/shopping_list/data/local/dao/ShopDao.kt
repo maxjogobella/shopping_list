@@ -11,13 +11,9 @@ import io.reactivex.rxjava3.core.Completable
 interface ShopDao {
     @Insert
     fun addItem(shopItem: ShopItem) : Completable
-
-    @Query("DELETE FROM shopitem_table WHERE id=:shopItemId LIMIT 1")
+    @Query("SELECT * FROM shopitem_table WHERE id=:shopItemId LIMIT 1")
     fun removeItem(shopItemId: Int) : Completable
-
-    @Query("SELECT * FROM shopitem_table")
     fun getShopList() : LiveData<List<ShopItem>>
-
     @Query("SELECT * FROM shopitem_table WHERE id=:shopItemId LIMIT 1")
     fun getShopItem(shopItemId: Int) : LiveData<ShopItem>
 
