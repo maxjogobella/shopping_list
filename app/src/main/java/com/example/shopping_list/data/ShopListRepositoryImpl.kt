@@ -1,11 +1,16 @@
 package com.example.shopping_list.data
 
+import androidx.lifecycle.LiveData
+import com.example.shopping_list.data.local.DatabaseProvider
+import com.example.shopping_list.data.local.ShopDatabase
 import com.example.shopping_list.domain.ShopItem
 import com.example.shopping_list.domain.ShopListRepository
 
 object ShopListRepositoryImpl : ShopListRepository {
+
+    private val database = DatabaseProvider.database.shopDao()
     override fun addShopList(shopItem: ShopItem) {
-        TODO("Not yet implemented")
+        database.addItem(shopItem)
     }
 
     override fun editShopList(shopItem: ShopItem) {
@@ -13,14 +18,14 @@ object ShopListRepositoryImpl : ShopListRepository {
     }
 
     override fun getShopItem(shopItemId: Int): ShopItem {
-        TODO("Not yet implemented")
+        return database.getShopItem(shopItemId)
     }
 
-    override fun getShopList(): List<ShopItem> {
-        TODO("Not yet implemented")
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return database.getShopList()
     }
 
     override fun removeList(shopItem: ShopItem) {
-        TODO("Not yet implemented")
+        database.removeItem(shopItem.id)
     }
 }
