@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.example.shopping_list.domain.ShopItem
 import io.reactivex.rxjava3.core.Completable
 
+
 @Dao
 interface ShopDao {
     @Insert
