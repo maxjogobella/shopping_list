@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity("shopitem_table")
 data class ShopItem(
-   // @PrimaryKey(autoGenerate = true)
     val name : String,
     val count : Int,
     val enabled : Boolean,
+    @PrimaryKey
     var id : Int = UNDEFINED_ID
 ) {
     companion object {
