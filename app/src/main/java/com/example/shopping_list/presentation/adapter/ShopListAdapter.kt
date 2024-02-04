@@ -13,6 +13,8 @@ import com.example.shopping_list.domain.ShopItem
 class ShopListAdapter : Adapter<ShopListAdapter.ShopListViewHolder>() {
 
     var count = 0
+    var onLongShopItemClickListener : ((ShopItem) -> Unit)? = null
+    var onShopItemClickListener : ((ShopItem) -> Unit)? = null
 
     var shopList = listOf<ShopItem>()
         set(value) {
@@ -29,8 +31,14 @@ class ShopListAdapter : Adapter<ShopListAdapter.ShopListViewHolder>() {
 
     override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
         val shopItem = shopList[position]
+
         holder.itemView.setOnLongClickListener {
+            onLongShopItemClickListener?.invoke(shopItem)
             true
+        }
+
+        holder.itemView.setOnClickListener {
+            onShopItemClickListener?.invoke(shopItem)
         }
 
         holder.tvName.text = shopItem.name
