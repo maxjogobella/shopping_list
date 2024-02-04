@@ -19,7 +19,7 @@ object ShopListRepositoryImpl : ShopListRepository {
     }
 
     init {
-        for (i in 0 until 10) {
+        for (i in 0 until 1000) {
             val item = ShopItem(name = "Name $i", count = i, enabled = true)
             addShopItem(item)
         }
@@ -47,6 +47,6 @@ object ShopListRepositoryImpl : ShopListRepository {
     }
 
     private fun updateList() {
-        shopListLD.value = shopList.toList()
+        shopListLD.value = shopList.sortedBy { it.id }.toList()
     }
 }
