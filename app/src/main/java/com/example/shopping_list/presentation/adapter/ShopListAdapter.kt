@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.shopping_list.R
 import com.example.shopping_list.domain.ShopItem
 
-class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopListViewHolder>(
+class ShopListAdapter : ListAdapter<ShopItem, ShopListViewHolder>(
     ShopItemDiffCallback()) {
 
     var onLongShopItemClickListener : ((ShopItem) -> Unit)? = null
@@ -40,12 +40,6 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopListViewHolder
         holder.tvCount.text = shopItem.count.toString()
     }
 
-    override fun onViewRecycled(holder: ShopListViewHolder) {
-        super.onViewRecycled(holder)
-        holder.tvName.text = ""
-        holder.tvCount.text = ""
-    }
-
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
         return if (item.enabled) {
@@ -53,11 +47,6 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopListViewHolder
         } else {
             R.layout.item_shop_disenabled
         }
-    }
-
-    inner class ShopListViewHolder(itemView : View) : ViewHolder(itemView) {
-        val tvName = itemView.findViewById<TextView>(R.id.tv_name)
-        val tvCount = itemView.findViewById<TextView>(R.id.tv_count)
     }
 
     companion object {
