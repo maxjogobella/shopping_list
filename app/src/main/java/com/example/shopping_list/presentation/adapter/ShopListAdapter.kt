@@ -23,13 +23,13 @@ class ShopListAdapter : Adapter<ShopListAdapter.ShopListViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopListViewHolder {
-        Log.d("ShopListAdapter", "onCreateViewHolder, count: ${count++}")
         val view = LayoutInflater.from(parent.context)
             .inflate(viewType, parent, false)
         return ShopListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
+        Log.d("ShopListAdapter", "onBindViewHolder, count: ${count++}")
         val shopItem = shopList[position]
 
         holder.itemView.setOnLongClickListener {
