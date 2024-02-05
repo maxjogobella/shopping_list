@@ -32,12 +32,26 @@ class ShopItemActivity : AppCompatActivity() {
         parseIntent()
         viewModel = ViewModelProvider(this)[ShopViewModel::class.java]
         initViews()
+        observeViewModel()
+        hideErrorInInputlayout()
 
         when (screenMode) {
             EXTRA_MODE_EDIT -> launchEditMode()
             EXTRA_MODE_ADD -> launchAddMode()
         }
+    }
 
+    private fun hideErrorInInputlayout() {
+        etName.doOnTextChanged { _, star, _, count ->
+            viewModel.resetErrorInputName()
+        }
+
+        etCount.doOnTextChanged { text, start, before, count ->
+            viewModel.resetErrorCount()
+        }
+    }
+
+    private fun observeViewModel() {
         viewModel.shouldCloseScreen.observe(this) {
             finish()
         }
@@ -58,14 +72,6 @@ class ShopItemActivity : AppCompatActivity() {
                 null
             }
             tilName.error = message
-        }
-
-        etName.doOnTextChanged { _, star, _, count ->
-            viewModel.resetErrorInputName()
-        }
-
-        etCount.doOnTextChanged { text, start, before, count ->
-            viewModel.resetErrorCount()
         }
 
     }
