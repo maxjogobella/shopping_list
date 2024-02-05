@@ -28,7 +28,7 @@ object ShopListRepositoryImpl : ShopListRepository {
 
     private var autoIncrementId = 0
 
-    override fun editShopList(shopItem: ShopItem) {
+    override fun editShopItem(shopItem: ShopItem) {
         val oldElement = getShopItem(shopItem.id)
         shopList.remove(oldElement)
         addShopItem(shopItem)

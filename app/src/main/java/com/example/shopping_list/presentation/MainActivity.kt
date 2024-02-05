@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     private fun setUpRecyclerView() {
         val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
         shopListAdapter = ShopListAdapter()
