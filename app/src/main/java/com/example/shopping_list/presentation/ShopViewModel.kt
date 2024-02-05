@@ -17,21 +17,21 @@ class ShopViewModel : ViewModel() {
     private val getShopItemUseCase = GetShopItemUseCase(repository)
 
     private val _errorInputName = MutableLiveData<Boolean>()
-    private val _errorCountName = MutableLiveData<Boolean>()
-    private val _shopItem = MutableLiveData<ShopItem>()
-    private val _shouldCloseScreen = MutableLiveData<Unit>()
-
-    val shouldCloseScreen : LiveData<Unit>
-        get() = _shouldCloseScreen
-    val shopItemLd : LiveData<ShopItem>
-        get() = _shopItem
-
-    val errorCountName : LiveData<Boolean>
-        get() = _errorCountName
-    val errorInputName : LiveData<Boolean>
+    val errorInputName: LiveData<Boolean>
         get() = _errorInputName
 
-    val shopList = repository.getShopList()
+    private val _errorInputCount = MutableLiveData<Boolean>()
+    val errorInputCount: LiveData<Boolean>
+        get() = _errorInputCount
+
+    private val _shopItem = MutableLiveData<ShopItem>()
+    val shopItem: LiveData<ShopItem>
+        get() = _shopItem
+
+    private val _shouldCloseScreen = MutableLiveData<Unit>()
+    val shouldCloseScreen: LiveData<Unit>
+        get() = _shouldCloseScreen
+
 
     fun addShopItem(inputName: String?, inputCount: String?) {
         val name = parseName(inputName)
@@ -56,12 +56,14 @@ class ShopViewModel : ViewModel() {
         }
     }
 
-    fun getShopItem(shopItem: ShopItem) {
-        val item = getShopItemUseCase.getShopItem(shopItem.id)
+    fun getShopItem(shopItemId : Int) {
+        val item = getShopItemUseCase.getShopItem(shopItemId)
         _shopItem.value = item
     }
 
-    private fun parseName(inputName: String?) = inputName?.trim() ?: ""
+    private fun parseName(inputName: String?): String {
+        return inputName?.trim() ?: ""
+    }
     private fun parseCount(inputCount: String?) : Int {
         return try {
             inputCount?.trim()?.toInt() ?: 0
@@ -71,14 +73,15 @@ class ShopViewModel : ViewModel() {
     }
 
     private fun validateInput(name : String, count : Int) : Boolean {
-        val result = true
+        var result = true
 
         if (name.isBlank()) {
             _errorInputName.value = true
-            return false
+            result = false
         }
         if (count <= 0) {
-            _errorCountName.value = true
+            _errorInputCount.value = true
+            result = false
         }
         return result
     }
@@ -88,7 +91,7 @@ class ShopViewModel : ViewModel() {
     }
 
     fun resetErrorCount() {
-        _errorCountName.value = false
+        _errorInputCount.value = false
     }
 
     private fun finishWork() {
