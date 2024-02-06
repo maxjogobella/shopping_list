@@ -1,4 +1,4 @@
-package com.example.shopping_list.presentation
+package com.example.shopping_list.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.example.shopping_list.data.ShopListRepositoryImpl
