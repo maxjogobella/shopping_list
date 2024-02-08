@@ -1,6 +1,8 @@
 package com.example.shopping_list.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +26,7 @@ class ShopItemFragment : Fragment() {
     private lateinit var etName: EditText
     private lateinit var etCount: EditText
     private lateinit var buttonSave: Button
+    private lateinit var onEditingFinisgedListener : OnEditingFinisgedListener
 
 
     override fun onCreateView(
@@ -34,7 +37,17 @@ class ShopItemFragment : Fragment() {
         return layoutInflater.inflate(R.layout.fragment_item, container, false)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnEditingFinisgedListener) {
+            onEditingFinisgedListener = context
+        } else {
+            throw RuntimeException("Activity must emplement onEditingFinisgedListener")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("ShopItemFragment", "onCreate")
         super.onCreate(savedInstanceState)
         parseParams()
     }
@@ -86,7 +99,7 @@ class ShopItemFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onEditingFinisgedListener.onEditingFinished()
         }
 
         viewModel.errorInputCount.observe(viewLifecycleOwner) {
@@ -131,6 +144,10 @@ class ShopItemFragment : Fragment() {
         etName = view.findViewById(R.id.et_name)
         etCount = view.findViewById(R.id.et_count)
         buttonSave = view.findViewById(R.id.save_button)
+    }
+
+    interface OnEditingFinisgedListener {
+        fun onEditingFinished()
     }
 
 
