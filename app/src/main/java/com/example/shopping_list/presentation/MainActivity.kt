@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping_list.R
 import com.example.shopping_list.presentation.adapter.ShopListAdapter
 import com.example.shopping_list.presentation.fragments.ShopItemFragment
+import com.example.shopping_list.presentation.viewmodel.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinisgedListener {

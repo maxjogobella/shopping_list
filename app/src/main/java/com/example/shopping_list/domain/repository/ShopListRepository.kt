@@ -1,6 +1,7 @@
-package com.example.shopping_list.domain
+package com.example.shopping_list.domain.repository
 
 import androidx.lifecycle.LiveData
+import com.example.shopping_list.domain.model.ShopItem
 
 interface ShopListRepository {
     fun addShopItem(shopItem: ShopItem)

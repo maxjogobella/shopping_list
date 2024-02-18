@@ -12,8 +12,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.shopping_list.R
-import com.example.shopping_list.domain.ShopItem
-import com.example.shopping_list.presentation.ShopViewModel
+import com.example.shopping_list.domain.model.ShopItem
+import com.example.shopping_list.presentation.viewmodel.ShopViewModel
 import com.google.android.material.textfield.TextInputLayout
 
 class ShopItemFragment : Fragment() {

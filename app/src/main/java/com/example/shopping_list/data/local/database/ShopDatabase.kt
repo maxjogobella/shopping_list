@@ -1,11 +1,11 @@
-package com.example.shopping_list.data.local
+package com.example.shopping_list.data.local.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.shopping_list.data.local.dao.ShopDao
-import com.example.shopping_list.domain.ShopItem
+import com.example.shopping_list.data.local.database.dao.ShopDao
+import com.example.shopping_list.domain.model.ShopItem
 
 @Database(entities = [ShopItem::class], version = 1, exportSchema = false)
 abstract class ShopDatabase : RoomDatabase() {

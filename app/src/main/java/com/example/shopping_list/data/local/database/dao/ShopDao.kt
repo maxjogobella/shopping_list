@@ -1,10 +1,10 @@
-package com.example.shopping_list.data.local.dao
+package com.example.shopping_list.data.local.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.shopping_list.domain.ShopItem
+import com.example.shopping_list.domain.model.ShopItem
 import io.reactivex.rxjava3.core.Completable
 
 

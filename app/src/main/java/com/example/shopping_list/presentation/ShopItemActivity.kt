@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shopping_list.R
-import com.example.shopping_list.domain.ShopItem
+import com.example.shopping_list.domain.model.ShopItem
 import com.example.shopping_list.presentation.fragments.ShopItemFragment
 
 class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinisgedListener {

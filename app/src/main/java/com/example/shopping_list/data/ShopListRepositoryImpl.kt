@@ -2,8 +2,8 @@ package com.example.shopping_list.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.shopping_list.domain.ShopItem
-import com.example.shopping_list.domain.ShopListRepository
+import com.example.shopping_list.domain.model.ShopItem
+import com.example.shopping_list.domain.repository.ShopListRepository
 import java.lang.RuntimeException
 import kotlin.random.Random
 
