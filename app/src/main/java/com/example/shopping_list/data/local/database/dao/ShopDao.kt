@@ -7,18 +7,16 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.shopping_list.data.local.model.ShopItemDb
 
-
 @Dao
 interface ShopDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addItem(shopItem: ShopItemDb)
-
+    suspend fun addItem(shopItem: ShopItemDb)
     @Query("DELETE FROM shop_items WHERE id=:shopItemId")
-    fun removeItem(shopItemId: Int)
+    suspend fun removeItem(shopItemId: Int)
 
     @Query("SELECT * FROM shop_items")
     fun getShopList() : LiveData<List<ShopItemDb>>
 
     @Query("SELECT * FROM shop_items WHERE id=:shopItemId LIMIT 1")
-    fun getShopItem(shopItemId: Int) : ShopItemDb
+    suspend fun getShopItem(shopItemId: Int) : ShopItemDb
 }

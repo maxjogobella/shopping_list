@@ -18,14 +18,13 @@ class ShopListRepositoryImpl(
     private val shopListDao = ShopDatabase.getInstance(application).shopDao()
     private val mapper = ShopListMapper()
 
-    override fun addShopItem(shopItem: ShopItem) {
-       shopListDao.addItem(mapper.mapEntityToDbModel(shopItem))
-    }
+    override suspend fun addShopItem(shopItem: ShopItem) =
+        shopListDao.addItem(mapper.mapEntityToDbModel(shopItem))
 
-    override fun editShopItem(shopItem: ShopItem) {
+    override suspend fun editShopItem(shopItem: ShopItem) {
         shopListDao.addItem(mapper.mapEntityToDbModel(shopItem))
     }
-    override fun getShopItem(shopItemId: Int): ShopItem {
+    override suspend fun getShopItem(shopItemId: Int): ShopItem {
         val dbModel = shopListDao.getShopItem(shopItemId)
         return mapper.mapDbModelToEntity(dbModel)
     }
@@ -36,7 +35,7 @@ class ShopListRepositoryImpl(
         }
     }
 
-    override fun removeItem(shopItem: ShopItem) {
+    override suspend fun removeItem(shopItem: ShopItem) {
         shopListDao.removeItem(shopItem.id)
     }
 }

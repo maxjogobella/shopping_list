@@ -5,7 +5,7 @@ import com.example.shopping_list.domain.repository.ShopListRepository
 
 class AddShopItemUseCase(private val shopListRepository: ShopListRepository) {
 
-    fun addShopList(shopItem: ShopItem) {
+    suspend fun addShopList(shopItem: ShopItem) {
         shopListRepository.addShopItem(shopItem)
     }
 

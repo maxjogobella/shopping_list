@@ -1,5 +1,7 @@
 package com.example.shopping_list.presentation.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.example.shopping_list.data.ShopListRepositoryImpl
 import com.example.shopping_list.domain.usecase.EditShopItemUseCase
@@ -7,14 +9,11 @@ import com.example.shopping_list.domain.usecase.GetShopListUseCase
 import com.example.shopping_list.domain.usecase.RemoveShopItemUseCase
 import com.example.shopping_list.domain.model.ShopItem
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application : Application) : AndroidViewModel(application) {
 
-    /*
-     * Presentation слой не должен знать об Data, но сейчас нет возможности сделать по-другому
-     * т.к для этого нужно знать об Dagger
-     */
+    private val repository = ShopListRepositoryImpl(application)
 
-    private val repository = ShopListRepositoryImpl
+
     private val getShopListUseCase = GetShopListUseCase(repository)
     private val deleteShopItemUseCase = RemoveShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
