@@ -1,33 +1,20 @@
 package com.example.shopping_list.data
 
+import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.example.shopping_list.data.local.database.ShopDatabase
 import com.example.shopping_list.domain.model.ShopItem
 import com.example.shopping_list.domain.repository.ShopListRepository
-import java.lang.RuntimeException
-import kotlin.random.Random
 
-object ShopListRepositoryImpl : ShopListRepository {
+class ShopListRepositoryImpl(
+    application : Application
+) : ShopListRepository {
 
-    private val shopListLD = MutableLiveData<List<ShopItem>>()
-    private val shopList = mutableListOf<ShopItem>()
+    private val shopListDao = ShopDatabase.getInstance(application).shopDao()
+
     override fun addShopItem(shopItem: ShopItem) {
-        if (shopItem.id == ShopItem.UNDEFINED_ID) {
-            shopItem.id = autoIncrementId++
-        }
-        shopList.add(shopItem)
-        updateList()
+       shopListDao.addItem(shopItem)
     }
-
-    init {
-        for (i in 0 until 1000) {
-            val item = ShopItem(name = "Name $i", count = i, enabled = Random.nextBoolean())
-            addShopItem(item)
-        }
-    }
-
-
-    private var autoIncrementId = 0
 
     override fun editShopItem(shopItem: ShopItem) {
         val oldElement = getShopItem(shopItem.id)

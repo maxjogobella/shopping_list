@@ -9,6 +9,7 @@ import com.example.shopping_list.data.local.model.ShopItemDb
 
 @Database(entities = [ShopItemDb::class], version = 1, exportSchema = false)
 abstract class ShopDatabase : RoomDatabase() {
+    
 
     companion object {
         private const val DATABASE_NAME = "shoplist.db"
@@ -16,6 +17,9 @@ abstract class ShopDatabase : RoomDatabase() {
         fun getInstance(context: Context) : ShopDatabase {
             INSTANCE?.let { return it }
             synchronized(this) {
+                INSTANCE?.let {
+                    return it
+                }
                 val instance = Room.databaseBuilder(
                     context,
                     ShopDatabase::class.java,
