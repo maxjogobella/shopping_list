@@ -3,6 +3,7 @@ package com.example.shopping_list.data
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.example.shopping_list.data.local.database.ShopDatabase
+import com.example.shopping_list.data.local.model.mapper.ShopListMapper
 import com.example.shopping_list.domain.model.ShopItem
 import com.example.shopping_list.domain.repository.ShopListRepository
 
@@ -11,31 +12,26 @@ class ShopListRepositoryImpl(
 ) : ShopListRepository {
 
     private val shopListDao = ShopDatabase.getInstance(application).shopDao()
+    private val mapper = ShopListMapper()
 
     override fun addShopItem(shopItem: ShopItem) {
-       shopListDao.addItem(shopItem)
+       shopListDao.addItem(mapper.mapEntityToDbModel(shopItem))
     }
 
     override fun editShopItem(shopItem: ShopItem) {
-        val oldElement = getShopItem(shopItem.id)
-        shopList.remove(oldElement)
-        addShopItem(shopItem)
+        shopListDao.addItem(mapper.mapEntityToDbModel(shopItem))
     }
     override fun getShopItem(shopItemId: Int): ShopItem {
-        return shopList.find { it.id == shopItemId
-            } ?: throw RuntimeException("Element with id $shopItemId not found")
+        val dbModel = shopListDao.getShopItem(shopItemId)
+        return mapper.mapDbModelToEntity(dbModel)
     }
 
     override fun getShopList(): LiveData<List<ShopItem>> {
-        return shopListLD
+        
     }
 
     override fun removeItem(shopItem: ShopItem) {
-        shopList.remove(shopItem)
-        updateList()
+        shopListDao.removeItem(shopItem.id)
     }
 
-    private fun updateList() {
-        shopListLD.value = shopList.sortedBy { it.id }.toList()
-    }
 }
