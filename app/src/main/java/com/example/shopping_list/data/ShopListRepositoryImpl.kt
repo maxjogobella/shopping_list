@@ -18,8 +18,9 @@ class ShopListRepositoryImpl(
     private val shopListDao = ShopDatabase.getInstance(application).shopDao()
     private val mapper = ShopListMapper()
 
-    override suspend fun addShopItem(shopItem: ShopItem) =
+    override suspend fun addShopItem(shopItem: ShopItem) {
         shopListDao.addItem(mapper.mapEntityToDbModel(shopItem))
+    }
 
     override suspend fun editShopItem(shopItem: ShopItem) {
         shopListDao.addItem(mapper.mapEntityToDbModel(shopItem))
